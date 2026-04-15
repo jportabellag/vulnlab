@@ -30,5 +30,8 @@ Issues = "https://github.com/your-user/vulnlab/issues"
 [project.scripts]
 vulnlab = "vulnlab.cli:main"
 
+[project.optional-dependencies]
+build = ["pyinstaller>=6.0"]
+
 [tool.setuptools]
 packages = ["vulnlab"]

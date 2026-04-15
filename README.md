@@ -28,7 +28,17 @@ It is designed for ethical hacking practice, security training, demos, and class
 
 ## Installation
 
-### Recommended: `pipx`
+`git clone` on its own does not install the `vulnlab` command into your shell. For end users, the intended installation path should be a prebuilt release binary.
+
+### Recommended: release binary install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/your-user/vulnlab/main/scripts/install.sh | bash
+```
+
+This installs a standalone `vulnlab` binary into `~/.local/bin` by default, so end users do not need to install Python separately.
+
+### Python-based install for development
 
 ```bash
 pipx install git+https://github.com/your-user/vulnlab.git
@@ -51,9 +61,12 @@ vulnlab setup
 
 ## Requirements
 
-- Python 3.9+
 - Docker
 - Git
+
+For source installs and development:
+
+- Python 3.9+
 
 `vulnlab setup` can optionally attempt installation of missing external tools and will always ask for confirmation first.
 
@@ -178,8 +191,8 @@ docker/
 ```bash
 vulnlab verify
 vulnlab verify multi_host --docker
-python3 -m pip install build
-python3 -m build
+python3 -m pip install -e .[build]
+bash scripts/build-release.sh
 ```
 
 See [docs/RELEASING.md](docs/RELEASING.md) for a structured release checklist.
