@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="${VULNLAB_REPO:-your-user/vulnlab}"
+REPO="${VULNLAB_REPO:-jportabellag/vulnlab}"
 VERSION="${1:-latest}"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
 
