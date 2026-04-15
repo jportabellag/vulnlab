@@ -32,7 +32,12 @@ jobs:
         run: bash build-release.sh
 
       - name: Rename release archive
-        run: mv "dist/vulnlab-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz" "dist/vulnlab-${{ matrix.asset_suffix }}.tar.gz"
+        run: |
+          SOURCE_ASSET="dist/vulnlab-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz"
+          TARGET_ASSET="dist/vulnlab-${{ matrix.asset_suffix }}.tar.gz"
+          if [ "$SOURCE_ASSET" != "$TARGET_ASSET" ]; then
+            mv "$SOURCE_ASSET" "$TARGET_ASSET"
+          fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
