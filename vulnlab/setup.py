@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import json
+import os
 import platform
 from dataclasses import dataclass
+from pathlib import Path
 
 from vulnlab.console import (
     ToolCheck,
@@ -19,9 +22,14 @@ from vulnlab.console import (
 
 
 TOOLING = [
-    ToolCheck("Docker", "docker", True, "Docker Desktop o motor Docker compatible"),
+    ToolCheck("Docker", "docker", True, "Docker Desktop or a compatible Docker engine"),
     ToolCheck("Git", "git", True, "git"),
+    ToolCheck("Nmap", "nmap", False, "nmap"),
+    ToolCheck("Redis CLI", "redis-cli", False, "redis-cli / redis-tools"),
 ]
+
+STATE_DIR = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "vulnlab"
+STATE_FILE = STATE_DIR / "state.json"
 
 
 def run_doctor() -> int:
@@ -40,6 +48,33 @@ def run_doctor() -> int:
             print_kv("Install", tool.install_hint)
 
     return 1 if missing_required else 0
+
+
+def _load_state() -> dict[str, bool]:
+    if not STATE_FILE.exists():
+        return {}
+    try:
+        return json.loads(STATE_FILE.read_text())
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _save_state(state: dict[str, bool]) -> None:
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+    STATE_FILE.write_text(json.dumps(state, indent=2, sort_keys=True))
+
+
+def _missing_tools() -> tuple[list[ToolCheck], list[ToolCheck]]:
+    required_missing: list[ToolCheck] = []
+    optional_missing: list[ToolCheck] = []
+    for tool in TOOLING:
+        if command_exists(tool.command):
+            continue
+        if tool.required:
+            required_missing.append(tool)
+        else:
+            optional_missing.append(tool)
+    return required_missing, optional_missing
 
 
 def _install_command(tool: ToolCheck) -> list[str] | None:
@@ -87,3 +122,38 @@ def run_setup() -> int:
 
     print()
     return run_doctor()
+
+
+def run_first_launch_bootstrap() -> int:
+    state = _load_state()
+    if state.get("bootstrap_complete"):
+        return 0
+
+    required_missing, optional_missing = _missing_tools()
+    if not required_missing and not optional_missing:
+        state["bootstrap_complete"] = True
+        _save_state(state)
+        return 0
+
+    print_header("First Launch Setup", "Reviewing system dependencies before opening the terminal UI.")
+
+    if required_missing:
+        print_warning("Required dependencies are missing.")
+        for tool in required_missing:
+            print_kv(tool.name, tool.install_hint)
+    else:
+        print_success("Required dependencies detected")
+
+    if optional_missing:
+        print_info("Optional tooling available for lab work can also be installed.")
+        for tool in optional_missing:
+            print_kv(tool.name, tool.install_hint)
+
+    if confirm("Run guided dependency setup now?", default=True):
+        run_setup()
+    else:
+        print_info("Skipping guided dependency setup")
+
+    state["bootstrap_complete"] = True
+    _save_state(state)
+    return 0

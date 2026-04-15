@@ -18,7 +18,7 @@ from vulnlab.manager import (
     reset_lab,
     stop_lab,
 )
-from vulnlab.setup import run_doctor, run_setup
+from vulnlab.setup import run_doctor, run_first_launch_bootstrap, run_setup
 from vulnlab.ui import launch_menu, should_launch_menu
 from vulnlab.verify import run_verification
 
@@ -52,6 +52,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    raw_args = sys.argv[1:] if argv is None else argv
+    interactive = sys.stdin.isatty()
+    if interactive and not raw_args:
+        run_first_launch_bootstrap()
+
     if should_launch_menu(argv):
         return launch_menu()
 

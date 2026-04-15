@@ -37,6 +37,7 @@ curl -fsSL https://raw.githubusercontent.com/your-user/vulnlab/main/install.sh |
 ```
 
 This installs a standalone `vulnlab` binary into `~/.local/bin` by default, so end users do not need to install Python separately.
+The installer also offers to install core system dependencies and updates shell PATH entries for common shells.
 
 ### Python-based install for development
 
@@ -55,8 +56,8 @@ python3 -m pip install -e .
 After installation:
 
 ```bash
-vulnlab doctor
-vulnlab setup
+source ~/.bashrc  # or open a new shell
+vulnlab
 ```
 
 ## Requirements
@@ -68,7 +69,7 @@ For source installs and development:
 
 - Python 3.9+
 
-`vulnlab setup` can optionally attempt installation of missing external tools and will always ask for confirmation first.
+`vulnlab setup` and first launch can optionally attempt installation of missing external tools and will always ask for confirmation first.
 
 ## Quick Start
 
