@@ -1,0 +1,5 @@
+Network FAQ
+===========
+
+Q: Why does the export route still exist?
+A: Legacy field devices have not been rotated out yet.

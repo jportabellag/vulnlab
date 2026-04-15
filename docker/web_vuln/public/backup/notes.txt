@@ -1,0 +1,3 @@
+Temporary backup directory.
+Pending cleanup before production cutover.
+If something breaks, restore the database from app.db.bak.

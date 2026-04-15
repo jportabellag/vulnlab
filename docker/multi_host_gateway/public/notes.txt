@@ -1,0 +1,4 @@
+Gateway review notes:
+- relay cache label still resolves inside the private network
+- field clients still send custom relay headers during health checks
+- remove diagnostics after rollout

@@ -1,0 +1,7 @@
+<?php
+return [
+    'db_path' => '/opt/vulnlab/data/app.db',
+    'primary_user' => 'admin',
+    'debug_token' => 'disabled-in-training',
+    'debug' => true,
+];

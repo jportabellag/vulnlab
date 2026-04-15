@@ -1,0 +1,2 @@
+Release changelog placeholder.
+This file is intentionally noisy and not directly useful.

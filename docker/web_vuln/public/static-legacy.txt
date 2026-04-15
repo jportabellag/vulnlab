@@ -1,0 +1,2 @@
+Legacy static bundle manifest.
+This file is intentionally noisy and does not contain credentials.

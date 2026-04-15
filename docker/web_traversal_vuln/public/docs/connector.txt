@@ -1,0 +1,6 @@
+Legacy connector notes
+----------------------
+
+- Field tablets call download.php directly.
+- Export clients still send X-Lab-Token.
+- Browser users should not rely on direct export access.

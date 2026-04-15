@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #edf2f7;
+    color: #111827;
+}
+
+.container {
+    max-width: 1024px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    padding: 18px;
+    border: 1px solid #d1d5db;
+    background: #f8fafc;
+}
+
+a {
+    color: #1d4ed8;
+}
+
+code {
+    padding: 2px 6px;
+    background: #e2e8f0;
+}
+
+.notice {
+    padding: 12px;
+    margin: 18px 0;
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+}
+
+.downloads li {
+    margin-bottom: 8px;
+}
+
+pre {
+    padding: 14px;
+    overflow: auto;
+    background: #0f172a;
+    color: #d1fae5;
+}

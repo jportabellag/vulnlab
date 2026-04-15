@@ -1,0 +1,5 @@
+Employee Handbook
+=================
+
+Keep local credentials out of exported bundles.
+Use the release process for archive changes.

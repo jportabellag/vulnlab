@@ -1,0 +1,4 @@
+APP_ENV=staging
+ALLOW_PING_TOOL=true
+EXPORT_PATH=/var/www/html/exports
+MAINTAINER=ops@vulnlab.local
