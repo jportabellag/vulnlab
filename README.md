@@ -33,7 +33,7 @@ It is designed for ethical hacking practice, security training, demos, and class
 ### Recommended: release binary install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/your-user/vulnlab/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/your-user/vulnlab/main/install.sh | bash
 ```
 
 This installs a standalone `vulnlab` binary into `~/.local/bin` by default, so end users do not need to install Python separately.
@@ -192,7 +192,7 @@ docker/
 vulnlab verify
 vulnlab verify multi_host --docker
 python3 -m pip install -e .[build]
-bash scripts/build-release.sh
+bash build-release.sh
 ```
 
 See [docs/RELEASING.md](docs/RELEASING.md) for a structured release checklist.

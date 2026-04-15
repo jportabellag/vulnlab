@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DIST_DIR="$ROOT_DIR/dist"
 BUILD_DIR="$ROOT_DIR/build"
 
@@ -16,8 +16,24 @@ python3 -m PyInstaller \
   --paths "$ROOT_DIR" \
   main.py
 
-OS_NAME="$(uname -s | tr '[:upper:]' '[:lower:]')"
-ARCH_NAME="$(uname -m)"
+case "$(uname -s)" in
+  Darwin) OS_NAME="darwin" ;;
+  Linux) OS_NAME="linux" ;;
+  *)
+    echo "Unsupported operating system: $(uname -s)" >&2
+    exit 1
+    ;;
+esac
+
+case "$(uname -m)" in
+  x86_64|amd64) ARCH_NAME="x86_64" ;;
+  arm64|aarch64) ARCH_NAME="arm64" ;;
+  *)
+    echo "Unsupported architecture: $(uname -m)" >&2
+    exit 1
+    ;;
+esac
+
 PACKAGE_DIR="$DIST_DIR/release"
 PACKAGE_NAME="vulnlab-${OS_NAME}-${ARCH_NAME}"
 
