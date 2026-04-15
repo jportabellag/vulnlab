@@ -29,7 +29,7 @@ jobs:
         run: python -m pip install -e .[build]
 
       - name: Build binary
-        run: bash scripts/build-release.sh
+        run: bash build-release.sh
 
       - name: Rename release archive
         run: mv "dist/vulnlab-$(uname -s | tr '[:upper:]' '[:lower:]')-$(uname -m).tar.gz" "dist/vulnlab-${{ matrix.asset_suffix }}.tar.gz"
