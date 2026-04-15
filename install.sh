@@ -5,9 +5,9 @@ REPO="${VULNLAB_REPO:-jportabellag/vulnlab}"
 VERSION="${1:-latest}"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
 
-if [[ "$REPO" == "jportabellag/vulnlab" ]]; then
+if [[ "$REPO" == "your-user/vulnlab" ]]; then
   echo "Set VULNLAB_REPO to your real GitHub repo before using this installer." >&2
-  echo "Example: VULNLAB_REPO=jordiportabella/vulnlab ./install.sh" >&2
+  echo "Example: VULNLAB_REPO=jportabellag/vulnlab ./install.sh" >&2
   exit 1
 fi
 
