@@ -36,7 +36,7 @@ It is designed for ethical hacking practice, security training, demos, and class
 curl -fsSL https://raw.githubusercontent.com/your-user/vulnlab/main/install.sh | bash
 ```
 
-This installs a standalone `vulnlab` binary into `~/.local/bin` by default, so end users do not need to install Python separately.
+This installs a standalone `vulnlab` binary into `~/.local/bin` and lab assets into `~/.local/share/vulnlab` by default, so end users do not need to install Python separately.
 The installer also offers to install core system dependencies and updates shell PATH entries for common shells.
 
 ### Python-based install for development

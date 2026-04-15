@@ -19,6 +19,7 @@ def _python_files() -> list[Path]:
         BASE_DIR / "vulnlab" / "docker.py",
         BASE_DIR / "vulnlab" / "labs.py",
         BASE_DIR / "vulnlab" / "manager.py",
+        BASE_DIR / "vulnlab" / "paths.py",
         BASE_DIR / "vulnlab" / "setup.py",
         BASE_DIR / "vulnlab" / "ui.py",
         BASE_DIR / "vulnlab" / "verify.py",

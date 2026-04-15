@@ -3,8 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from vulnlab.paths import get_asset_root
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR = get_asset_root()
 
 
 @dataclass(frozen=True)

@@ -4,6 +4,7 @@ set -euo pipefail
 REPO="${VULNLAB_REPO:-jportabellag/vulnlab}"
 VERSION="${1:-latest}"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
+DATA_DIR="${DATA_DIR:-$HOME/.local/share/vulnlab}"
 
 if [[ "$REPO" == "your-user/vulnlab" ]]; then
   echo "Set VULNLAB_REPO to your real GitHub repo before using this installer." >&2
@@ -40,7 +41,7 @@ fi
 TMP_DIR="$(mktemp -d)"
 trap 'rm -rf "$TMP_DIR"' EXIT
 
-mkdir -p "$INSTALL_DIR"
+mkdir -p "$INSTALL_DIR" "$DATA_DIR"
 
 command_exists() {
   command -v "$1" >/dev/null 2>&1
@@ -163,12 +164,20 @@ if ! tar -xzf "$TMP_DIR/${ASSET_NAME}" -C "$TMP_DIR"; then
   exit 1
 fi
 
-if [[ ! -f "$TMP_DIR/vulnlab" ]]; then
+if [[ ! -f "$TMP_DIR/bin/vulnlab" ]]; then
   echo "Release archive did not contain the vulnlab binary." >&2
   exit 1
 fi
 
-install "$TMP_DIR/vulnlab" "$INSTALL_DIR/vulnlab"
+if [[ ! -d "$TMP_DIR/share/vulnlab/docker" ]] || [[ ! -d "$TMP_DIR/share/vulnlab/docs" ]]; then
+  echo "Release archive did not contain the required VulnLab assets." >&2
+  exit 1
+fi
+
+install "$TMP_DIR/bin/vulnlab" "$INSTALL_DIR/vulnlab"
+rm -rf "$DATA_DIR"
+mkdir -p "$DATA_DIR"
+cp -R "$TMP_DIR/share/vulnlab/." "$DATA_DIR/"
 
 ensure_path_line "$HOME/.bashrc"
 ensure_path_line "$HOME/.zshrc"
@@ -177,6 +186,7 @@ bootstrap_dependencies
 
 echo
 echo "Installed vulnlab to: $INSTALL_DIR/vulnlab"
+echo "Installed assets to: $DATA_DIR"
 echo "PATH bootstrap updated for ~/.bashrc and ~/.zshrc."
 echo
 echo "Next steps:"

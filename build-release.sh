@@ -38,8 +38,10 @@ PACKAGE_DIR="$DIST_DIR/release"
 PACKAGE_NAME="vulnlab-${OS_NAME}-${ARCH_NAME}"
 
 rm -rf "$PACKAGE_DIR"
-mkdir -p "$PACKAGE_DIR"
-cp "$DIST_DIR/vulnlab" "$PACKAGE_DIR/vulnlab"
+mkdir -p "$PACKAGE_DIR/bin" "$PACKAGE_DIR/share/vulnlab"
+cp "$DIST_DIR/vulnlab" "$PACKAGE_DIR/bin/vulnlab"
+cp -R docker "$PACKAGE_DIR/share/vulnlab/docker"
+cp -R docs "$PACKAGE_DIR/share/vulnlab/docs"
 cp README.md LICENSE "$PACKAGE_DIR/"
 
 tar -C "$PACKAGE_DIR" -czf "$DIST_DIR/${PACKAGE_NAME}.tar.gz" .

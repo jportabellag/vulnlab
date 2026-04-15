@@ -3,7 +3,10 @@ from __future__ import annotations
 from pathlib import Path
 
 from vulnlab.console import print_header, print_warning
-from vulnlab.labs import BASE_DIR
+from vulnlab.paths import get_asset_root
+
+
+BASE_DIR = get_asset_root()
 
 
 def walkthrough_path(slug: str) -> Path:
